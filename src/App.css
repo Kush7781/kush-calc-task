@@ -1,38 +1,195 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.calculator, .history {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.App-link {
-  color: #61dafb;
+.calculator {
+  border-right: 1px solid #ccc;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.app {
+  display: flex;
+  height: 100vh;
+  transition: all 0.3s;
+  background-color: #f0f0f0;
+}
+
+.display {
+  width: 100%;
+  text-align: right;
+  padding: 10px;
+  font-size: 2rem;
+  box-sizing: border-box;
+  border: none;
+  background: #f0f0f0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.keypad {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.keypad button {
+  font-size: 1.5rem;
+  padding: 20px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.3s;
+}
+
+.keypad button:hover {
+  background: #f7f7f7;
+  transform: translateY(-2px);
+}
+
+.keypad button:active {
+  background: #ddd;
+  transform: translateY(0);
+}
+
+.hamburger {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10; 
+  display: none; 
+}
+
+.history {
+  background-color: #fff;
+  overflow: auto; 
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  transition: transform 0.3s ease, width 0.3s ease; 
+}
+
+
+.history.hidden {
+  transform: translateX(100%);
+  display: none;
+}
+
+
+.history.show {
+  transform: translateX(0); 
+  display: flex;
+}
+
+.history-list {
+  flex: 1; 
+  overflow: auto;
+  margin-top: 10px; 
+
+  word-wrap: break-word; 
+  display: flex;
+  flex-direction: column;
+}
+
+.history-item {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  font-size: 1.2rem;
+  white-space: pre-wrap; 
+  overflow-wrap: break-word; 
+}
+
+.history button {
+  margin-bottom: 10px; 
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  background: #333;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.history button:hover {
+  background: #555;
+  transform: translateY(-2px);
+}
+
+.history button:active {
+  background: #777;
+  transform: translateY(0);
+}
+
+
+@media (min-width: 577px) {
+  .app {
+    flex-direction: row;
   }
-  to {
-    transform: rotate(360deg);
+
+  .history {
+    display: flex;
+    transform: translateX(0); 
+    width: auto; 
+  }
+
+  .calculator.full-width {
+    flex: 1;
+  }
+
+  .history.full-width {
+    flex: 1;
+  }
+
+  .hamburger {
+    display: none; 
+  }
+}
+
+@media (max-width: 576px) {
+  .app {
+    flex-direction: column;
+  }
+
+  .calculator, .history {
+    width: 100%;
+    flex: none;
+  }
+
+  .history {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: none;
+    transform: translateX(100%); 
+  }
+
+  .history.show {
+    display: flex;
+    transform: translateX(0); 
+  }
+
+  .hamburger {
+    display: block; 
   }
 }
